@@ -10,7 +10,7 @@ public class SistemaLivro {
     }
 
 
-    public void AdicionarLivro(Livro livro) throws Exception {
+    public void AdicionarLivro(Livro livro){
 
          for(Livro l: livros){
              if (l.getTitulo().equalsIgnoreCase(livro.getTitulo())){
