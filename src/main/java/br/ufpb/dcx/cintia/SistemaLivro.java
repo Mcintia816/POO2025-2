@@ -26,12 +26,13 @@ public class SistemaLivro {
     }
 
     public boolean RemoverL(String autor) {
-        for (Livro l : livros)
-            if (l.getNomeAutor().equals(autor)) {
-                livros.remove(l);
+        for (int i=0; i<livros.size(); i++){
+            if (livros.get(i).getNomeAutor().equalsIgnoreCase(autor)) {
+                livros.remove(i);
                 System.out.println("Titulo removido com sucesso!");
                 return true;
             }
+        }
         return false;
 
     }
