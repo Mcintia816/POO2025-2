@@ -8,7 +8,7 @@ public class Livro {
     private String genero;
     private int quantPaginas;
 
-    public Livro(String nomeAutor){
+    public Livro(String nomeAutor,String titulo,String genero,int quantPaginas){
         this.nomeAutor = nomeAutor;
         this.titulo = titulo;
         this.genero = genero;
@@ -41,8 +41,8 @@ public class Livro {
 
     }
 
-    public String setTitulo(String titulo){
-        return this.titulo;
+    public void setTitulo(String titulo){
+        this.titulo = titulo;
     }
     public String getGenero(){
         return this.genero;
@@ -74,7 +74,7 @@ public class Livro {
     }
 
     public String toString(){
-        return "Nome do Autor: " + getNomeAutor() + "Titulo do livro: " + getTitulo() + "Genero: " + getQuantPaginas() + "Quantidade de páginas:";
+        return "Nome do Autor: " + getNomeAutor() + "Titulo do livro: " + getTitulo() + "Genero: " + getQuantPaginas() + "Quantidade de páginas:" +getQuantPaginas;
 
 
     }
