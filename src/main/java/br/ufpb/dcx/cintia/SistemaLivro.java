@@ -13,13 +13,16 @@ public class SistemaLivro {
     public void AdicionarLivro(Livro livro) throws Exception {
 
          for(Livro l: livros){
-             if (l.getTitulo().equalsIgnoreCase(l.getTitulo())){
+             if (l.getTitulo().equalsIgnoreCase(livro.getTitulo())){
                  throw new Exception(" Este titulo já existe na lista");
              }
 
         }
         livros.add(livro);
         IO.println("Livro  Adicionado: " + livro.getTitulo());
+    }
+    public List<Livro>getLivros(){
+        return this.livros;
     }
 
     public boolean RemoverL(String autor) {
