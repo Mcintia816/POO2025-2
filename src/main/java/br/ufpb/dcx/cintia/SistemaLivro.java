@@ -14,7 +14,7 @@ public class SistemaLivro {
 
          for(Livro l: livros){
              if (l.getTitulo().equalsIgnoreCase(livro.getTitulo())){
-                 throw new Exception(" Este titulo já existe na lista");
+                 throw new TituloExistente(" Este titulo já existe na lista");
              }
 
         }
