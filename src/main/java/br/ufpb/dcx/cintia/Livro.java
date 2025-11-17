@@ -74,7 +74,7 @@ public class Livro {
     }
 
     public String toString(){
-        return "Nome do Autor: " + getNomeAutor() + "Titulo do livro: " + getTitulo() + "Genero: " + getQuantPaginas() + "Quantidade de páginas:" +getQuantPaginas;
+        return "Nome do Autor: " + getNomeAutor() + "Titulo do livro: " + getTitulo() + "Genero: " + getQuantPaginas() + "Quantidade de páginas:" +getQuantPaginas();
 
 
     }
