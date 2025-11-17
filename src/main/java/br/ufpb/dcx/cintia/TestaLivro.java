@@ -5,7 +5,7 @@ import javax.swing.*;
 
 
 public class TestaLivro {
-   public static void main(String[] args) throws Exception {
+   public static void main(String[] args){
        SistemaLivro livro = new SistemaLivro();
        int quant = Integer.parseInt(JOptionPane.showInputDialog("Quantos Livros voce deseja colocar na lista?"));
        for (int i = 0; i < quant; i++) {
@@ -15,12 +15,20 @@ public class TestaLivro {
            int quantPaginas = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de páginas: "));
 
            Livro livro1 = new Livro(autor,titulo,genero,quantPaginas);
-           livro.AdicionarLivro(livro1);
 
+           try{
+               livro.AdicionarLivro(livro1);
+
+               }catch(TituloExistente e){
+                   JOptionPane.showMessageDialog(null,e.getMessage());
+           }
 
        }
-       for (Livro l : livro.getLivros()) {
+
+       for (Livro l: livro.getLivros()) {
            System.out.println(l.toString());
+       }
+
 
 
 
@@ -35,4 +43,5 @@ public class TestaLivro {
 
 
 
-}
+
+
