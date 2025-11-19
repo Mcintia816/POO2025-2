@@ -3,12 +3,12 @@ package ufpb.dcx.amigosecreto;
 public class Amigo {
     private String nome;
     private String email;
-    private String emailAmigoSecretio;
+    private String emailAmigoSecreto;
 
     public Amigo(String nome, String email, String emailAmigoSecreto) {
         this.nome = nome;
         this.email = email;
-        this.emailAmigoSecretio = emailAmigoSecreto;
+        this.emailAmigoSecreto = emailAmigoSecreto;
 
 
     }
@@ -30,11 +30,11 @@ public class Amigo {
     }
 
     public String getEmailAmigoSecreto() {
-        return this.emailAmigoSecretio;
+        return this.emailAmigoSecreto;
     }
 
     public void setEmailAmigoSecreto(String emailAmigoSecreti) {
-        this.emailAmigoSecretio= emailAmigoSecreti;
+        this.emailAmigoSecreto= emailAmigoSecreti;
     }
 
 

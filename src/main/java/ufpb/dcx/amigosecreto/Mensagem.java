@@ -31,7 +31,7 @@ public abstract class Mensagem {
         this.emailRemetente = emailRemetente;
     }
 
-    public boolean ahAnonima() {
+    public boolean ehAnonima() {
         return this.anonima;
     }
 

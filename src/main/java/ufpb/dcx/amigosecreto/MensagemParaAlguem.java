@@ -1,4 +1,34 @@
 package ufpb.dcx.amigosecreto;
 
-public class MensagemParaAlguem {
+public class MensagemParaAlguem extends Mensagem {
+    private String emailDestinatario;
+
+    public MensagemParaAlguem(String texto, String emailRemetente, boolean anonima){
+        super(texto, emailRemetente, anonima);
+        this.emailDestinatario = emailDestinatario;
+
+    }
+
+    public String getEmailDestinatario() {
+        return emailDestinatario;
+    }
+
+    public void setEmailDestinatario(String emailDestinatario) {
+        this.emailDestinatario = emailDestinatario;
+    }
+
+    public String getTextoCompletoAExibir(){
+        if(super.ehAnonima()){
+            return "Mensagem para " + this.emailDestinatario + ". Texto: " + super.getTexto();
+
+        }else{
+           return "Mensagem de " + super.getEmailRemetente() + " para " + this.emailDestinatario + ". Texto: " + super.getTexto();
+
+        }
+
+
+    }
+
+
+
 }
