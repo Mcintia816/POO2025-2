@@ -1,83 +1,57 @@
 package ufpb.dcx.amigosecreto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class SistemaAmigo {
+public class SistemaAmigoMap {
+
+    private Map<String, Amigo> amigos;
     private List<Mensagem> mensagens;
-    private List<Amigo> amigos;
 
-    public SistemaAmigo() {
+    public SistemaAmigoMap() {
+        this.amigos = new HashMap<>();
         this.mensagens = new ArrayList<>();
-        this.amigos = new ArrayList<>();
     }
 
     public Amigo pesquisaAmigo(String emailAmigo) throws AmigoInexistenteException {
-        for (Amigo a : amigos) {
-            if (a.getEmail().equalsIgnoreCase(emailAmigo)) {
-                return a;
-            }
+        Amigo a = amigos.get(emailAmigo);
+        if (a == null) {
+            throw new AmigoInexistenteException("Amigo com email " + emailAmigo + " não encontrado.");
         }
-        throw new AmigoInexistenteException(" O amigos que voce está procurando não foi encontrado");
-
+        return a;
     }
-
 
     public void cadastraAmigo(String nomeAmigo, String emailAmigo) throws AmigoJaExisteException {
-        for (Amigo a : amigos) {
-            if (!a.getNome().contains(nomeAmigo) && a.getEmailAmigoSecreto().contains(emailAmigo)) {
-                amigos.add(a);
-            }
+        if (amigos.containsKey(emailAmigo))
+            throw new AmigoJaExisteException("Esse amigo já está cadastrado: " + emailAmigo);
+        amigos.put(emailAmigo, new Amigo(nomeAmigo, emailAmigo));
 
-        }
-        throw new AmigoJaExisteException("Esse amigo já está cadastrado");
-    }
-
-    public List<Mensagem> pesquisaTodasAsMensagens() {
-        return this.mensagens;
     }
     public void configuraAmigoSecretoDe(String emailDaPessoa, String emailAmigoSorteado)
             throws AmigoInexistenteException {
+        Amigo pessoa = pesquisaAmigo(emailDaPessoa);
+        pessoa.setEmailAmigoSecreto(emailAmigoSorteado);
+    }
 
-        Amigo pessoaEncontrada = null;
-
-
-        for (Amigo a : amigos) {
-            if (a.getEmail().equals(emailDaPessoa)) {
-                pessoaEncontrada = a;
-                break;
-            }
-        }
-
-
-        if (pessoaEncontrada == null) {
-            throw new AmigoInexistenteException(
-                    "Não existe pessoa cadastrada com o e-mail: " + emailDaPessoa);
-        }
-
-        pessoaEncontrada.setEmailAmigoSecreto(emailAmigoSorteado);
+    public String pesquisaAmigoSecretoDe(String emailPessoa) throws AmigoInexistenteException {
+        return pesquisaAmigo(emailPessoa).getEmailAmigoSecreto();
     }
 
 
-    public String pesquisaAmigoSecretoDe(String emailPessoa) throws AmigoInexistenteException {
-        for (Amigo amigo : amigos) {
-            if (amigo.getEmail().equalsIgnoreCase(emailPessoa)) {
-                return amigo.getEmailAmigoSecreto();
-
-            }
-        }
-        throw new AmigoInexistenteException(" Pessoa do email: " + emailPessoa + " Não encontrada");
+    public List<Mensagem> pesquisaTodasAsMensagens() {
+        return mensagens;
     }
 
     public List<Mensagem> pesquisaMensagensAnonimas() {
-        List<Mensagem> anonima = new ArrayList<>();
+        List<Mensagem> anonimas = new ArrayList<>();
         for (Mensagem m : mensagens) {
             if (m.ehAnonima()) {
-                anonima.add(m);
-
+                anonimas.add(m);
             }
         }
-        return anonima;
+        return anonimas;
     }
 
     public void enviarMensagensparaTodos(String texto, String emailRemetente, boolean ehAnonima) {
@@ -109,10 +83,15 @@ public class SistemaAmigo {
     }
 
     public void sortearAmigo() throws AmigoNaoSorteadoException {
-        List<Amigo> aindaNaoSorteados = new ArrayList<>(amigos);
-        for (Amigo at : amigos) {
-            int posicaoDaListaSorteada = (int) (Math.random()) * aindaNaoSorteados.size();
+        List<Amigo> listaAmigos = new ArrayList<>(amigos.values());
+        List<Amigo> aindaNaoSorteados = new ArrayList<>(listaAmigos);
+
+        for (Amigo at : listaAmigos) {
+            if (aindaNaoSorteados.isEmpty()) break;
+
+            int posicaoDaListaSorteada = (int) (Math.random() * aindaNaoSorteados.size());
             Amigo sorteado = aindaNaoSorteados.get(posicaoDaListaSorteada);
+
             if (sorteado.getEmail().equalsIgnoreCase(at.getEmail())) {
                 if (aindaNaoSorteados.size() == 1) {
                     sortearAmigo();
@@ -120,14 +99,10 @@ public class SistemaAmigo {
                 }
                 posicaoDaListaSorteada = (int) (Math.random() * aindaNaoSorteados.size());
                 sorteado = aindaNaoSorteados.get(posicaoDaListaSorteada);
-
             }
+
             at.setEmailAmigoSecreto(sorteado.getEmail());
-
+            aindaNaoSorteados.remove(sorteado);
         }
-
-
     }
-
-
 }

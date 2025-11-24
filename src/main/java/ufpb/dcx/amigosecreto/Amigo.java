@@ -13,6 +13,8 @@ public class Amigo {
 
     }
 
+
+
     public String getNome() {
         return this.nome;
     }
